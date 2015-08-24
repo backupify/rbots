@@ -5,7 +5,7 @@ Robut::Connection.configure do |config|
   # https://confluence.atlassian.com/pages/viewpage.action?pageId=751436251
   #   Room history is automatically sent when joining a room unless your JID
   #   resource is “bot”.
-  jid = ENV["RBOT_JID"]
+  jid = ENV["RBOT_JID"].dup
   jid.concat("/bot") unless /\/bot$/ === jid
   config.jid = jid
 
