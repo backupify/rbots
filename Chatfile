@@ -22,6 +22,8 @@ Robut::Connection.configure do |config|
 end
 
 require "robut/plugin/ping"
+require "rbots/plugin/pry"
 Robut::Plugin.plugins.concat([
   Robut::Plugin::Ping,
+  Rbots::Plugin::Pry,
 ])
