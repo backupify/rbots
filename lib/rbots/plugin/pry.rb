@@ -2,16 +2,12 @@ require "pry"
 
 module Rbots::Plugin
   class Pry
-    include Robut::Plugin
+    include Hipbot::Plugin
 
-    def handle(time, nick, message)
-      binding.pry if matcher === message.strip
-    end
+    on(/^pry ?(.*)$/, :handle)
 
-    private
-
-    def matcher
-      @matcher ||= /^@#{self.nick} +pry$/
+    def handle(arg)
+      binding.pry
     end
   end
 end

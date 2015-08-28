@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Danny Guinther"]
   spec.email         = ["dguinther@datto.com"]
 
-  spec.summary       = %q{Multibot robut}
-  spec.description   = %q{Multibot robut}
+  spec.summary       = %q{rbots!}
+  spec.description   = %q{rbots!}
   spec.homepage      = "https://github.com/backupify/rbots"
   spec.license       = "MIT"
 
@@ -23,5 +23,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "minitest", "> 3.0"
   spec.add_development_dependency "rake", "~> 10.0"
   spec.add_dependency "hipchat", "~> 1.2.0"
-  spec.add_dependency "robut", "~> 0.5.2"
+  spec.add_dependency "hipbot", "~> 1.0.3"
 end

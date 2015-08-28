@@ -2,7 +2,7 @@ require "json"
 
 module Rbots::Plugin
   class GoogleImages
-    include Robut::Plugin
+    include Hipbot::Plugin
 
     ANIMATE_ME_DESC = [
       "animate me <query> - The same thing as `image me`, except adds a few",
@@ -16,13 +16,13 @@ module Rbots::Plugin
     SEARCH_URL = "http://ajax.googleapis.com/ajax/services/search/images".freeze
 
     desc(ANIMATE_ME_DESC)
-    match(/(?:animate)(?: me)? (.*)/i) do |match|
+    on(/(?:animate)(?: me)? (.*)/i) do |match|
       url = image_url(match, true)
       reply(url) unless url.empty?
     end
 
     desc(IMAGE_ME_DESC)
-    match(/(?:image|img)(?: me)? (.*)/i) do |match|
+    on(/(?:image|img)(?: me)? (.*)/i) do |match|
       url = image_url(match)
       reply(url) unless url.empty?
     end

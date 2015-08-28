@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "rbots"
+
+require "rbots/plugin/pry"
+require "rbots/plugin/google_images"
+
+class Bot < Hipbot::Bot
+  configure do |c|
+    c.jid       = ENV["RBOT_JID"]
+    c.password  = ENV["RBOT_PASSWORD"]
+    c.join = :none
+  end
+end
+
+Bot.start!

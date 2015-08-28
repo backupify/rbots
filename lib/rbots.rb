@@ -1,3 +1,5 @@
+require "hipbot"
+
 module Rbots
   module Bot; end
   module Plugin; end
