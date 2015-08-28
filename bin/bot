@@ -12,6 +12,7 @@ class Bot < Hipbot::Bot
     c.jid       = ENV["RBOT_JID"]
     c.password  = ENV["RBOT_PASSWORD"]
     c.storage = Rbots::DataStore::Redis
+    c.join = :none
   end
 end
 
