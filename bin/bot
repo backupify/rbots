@@ -5,11 +5,13 @@ require "rbots"
 
 require "rbots/plugin/pry"
 require "rbots/plugin/google_images"
+require "rbots/data_store/redis"
 
 class Bot < Hipbot::Bot
   configure do |c|
     c.jid       = ENV["RBOT_JID"]
     c.password  = ENV["RBOT_PASSWORD"]
+    c.storage = Rbots::DataStore::Redis
     c.join = :none
   end
 end
