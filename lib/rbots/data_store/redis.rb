@@ -1,9 +1,11 @@
-require "redis"
+require "rbots/brain"
 
 module Rbots::DataStore::Redis
   extend ActiveSupport::Concern
 
   attr_reader :id
+
+  included { include Rbots::Brain }
 
   def initialize(id, auto_load = false)
     @id = id
@@ -52,10 +54,6 @@ module Rbots::DataStore::Redis
 
     def all_keys
       brain.smembers(cache_key)
-    end
-
-    def brain
-      @brain ||= Redis.new
     end
 
     def cache
