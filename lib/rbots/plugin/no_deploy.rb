@@ -10,8 +10,6 @@ module Rbots::Plugin
 
     desc(DISABLE_DESC)
     on(/(?:disable deploys to) (.*)/i) do |ip|
-      require "pry"
-      binding.pry
       names = worker_names_for_ip(ip)
       brain = self.class.brain
       names.each do |worker_name|
