@@ -13,7 +13,7 @@ module Rbots::Plugin
       names = worker_names_for_ip(ip)
       brain = Rbots::Brain.brain
       names.each do |worker_name|
-        brain.sadd(worker_name)
+        brain.sadd("no_deploy", worker_name)
       end
       reply("Disabled deploys to #{names.join(", ")}")
     end
@@ -23,7 +23,7 @@ module Rbots::Plugin
       names = worker_names_for_ip(ip)
       brain = Rbots::Brain.brain
       names.each do |worker_name|
-        brain.srem(worker_name)
+        brain.srem("no_deploy", worker_name)
       end
       reply("Enabled deploys to #{names.join(", ")}")
     end
