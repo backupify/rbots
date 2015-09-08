@@ -32,7 +32,7 @@ module Rbots::Plugin
 
     def worker_names_for_ip(ip)
       names = self.class.worker_name_map[ip]
-      return names unless names.empty?
+      return names unless names.nil?
       return [ip] if self.class.worker_name_map.values.flatten.include?(ip)
     end
 
