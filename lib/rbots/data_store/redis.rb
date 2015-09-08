@@ -86,7 +86,8 @@ module Rbots::DataStore::Redis
     end
 
     def find_or_create_by(attrs)
-      return find(attrs[:id]) if attrs.key?(:id)
+      found = find(attrs[:id]) if attrs.key?(:id)
+      return found if found
       find_by(attrs) || create(attrs[:id], :auto_load)
     end
 
