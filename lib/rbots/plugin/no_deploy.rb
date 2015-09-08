@@ -1,7 +1,7 @@
 require "yaml"
 
 module Rbots::Plugin
-  class GoogleImages
+  class NoDeploy
     include Hipbot::Plugin
     include Rbots::Brain
 
@@ -14,7 +14,7 @@ module Rbots::Plugin
       binding.pry
       names = worker_names_for_ip(ip)
       names.each do |worker_name|
-        brain.sadd(worker_name)
+        self.class.brain.sadd(worker_name)
       end
       reply("Disabled deploys to #{names.join(", ")}")
     end
@@ -23,7 +23,7 @@ module Rbots::Plugin
     on(/(?:enable deploys to) (.*)/i) do |ip|
       names = worker_names_for_ip(ip)
       names.each do |worker_name|
-        brain.srem(worker_name)
+        self.class.brain.srem(worker_name)
       end
       reply("Enabled deploys to #{names.join(", ")}")
     end
