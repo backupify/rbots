@@ -10,8 +10,9 @@ module Rbots::Plugin
 
     desc(DISABLE_DESC)
     on(/(?:disable deploys to) (.*)/i) do |ip|
-      names = worker_names_for_ip(ip)
       brain = Rbots::Brain.brain
+      names = worker_names_for_ip(ip)
+      names = [ip] if names.empty?
       names.each do |worker_name|
         brain.sadd("no_deploy", worker_name)
       end
@@ -22,6 +23,7 @@ module Rbots::Plugin
     on(/(?:enable deploys to) (.*)/i) do |ip|
       names = worker_names_for_ip(ip)
       brain = Rbots::Brain.brain
+      names = [ip] if names.empty?
       names.each do |worker_name|
         brain.srem("no_deploy", worker_name)
       end
