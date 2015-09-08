@@ -11,7 +11,7 @@ module Rbots::Plugin
     desc(DISABLE_DESC)
     on(/(?:disable deploys to) (.*)/i) do |ip|
       names = worker_names_for_ip(ip)
-      brain = self.class.brain
+      brain = Rbots::Brain.brain
       names.each do |worker_name|
         brain.sadd(worker_name)
       end
@@ -21,7 +21,7 @@ module Rbots::Plugin
     desc(ENABLE_DESC)
     on(/(?:enable deploys to) (.*)/i) do |ip|
       names = worker_names_for_ip(ip)
-      brain = self.class.brain
+      brain = Rbots::Brain.brain
       names.each do |worker_name|
         brain.srem(worker_name)
       end
