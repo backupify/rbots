@@ -31,7 +31,7 @@ module Rbots::Plugin
     end
 
     def worker_names_for_ip(ip)
-      self.class.worker_name_map.fetch(ip)
+      self.class.worker_name_map[ip] || ip
     end
 
     def self.worker_name_map
