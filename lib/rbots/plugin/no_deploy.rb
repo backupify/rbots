@@ -31,7 +31,9 @@ module Rbots::Plugin
     end
 
     def worker_names_for_ip(ip)
-      self.class.worker_name_map[ip] || ip
+      names = self.class.worker_name_map[ip]
+      return names unless names.empty?
+      return [ip] if self.class.worker_name_map.values.flatten.include?(ip)
     end
 
     def self.worker_name_map
