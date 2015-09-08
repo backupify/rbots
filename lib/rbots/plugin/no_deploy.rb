@@ -13,8 +13,9 @@ module Rbots::Plugin
       require "pry"
       binding.pry
       names = worker_names_for_ip(ip)
+      brain = self.class.brain
       names.each do |worker_name|
-        self.class.brain.sadd(worker_name)
+        brain.sadd(worker_name)
       end
       reply("Disabled deploys to #{names.join(", ")}")
     end
@@ -22,8 +23,9 @@ module Rbots::Plugin
     desc(ENABLE_DESC)
     on(/(?:enable deploys to) (.*)/i) do |ip|
       names = worker_names_for_ip(ip)
+      brain = self.class.brain
       names.each do |worker_name|
-        self.class.brain.srem(worker_name)
+        brain.srem(worker_name)
       end
       reply("Enabled deploys to #{names.join(", ")}")
     end
