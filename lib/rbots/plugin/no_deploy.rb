@@ -29,6 +29,14 @@ module Rbots::Plugin
       reply("The following hosts are on the no deploy list: #{disabled_hosts.join(", ")}")
     end
 
+    def brain
+      self.class.brain
+    end
+
+    def disabled_hosts
+      Rbots::Brain.brain.smembers("no_deploy")
+    end
+
     def extract_name(entity)
       if is_ip?(entity)
         worker_name_map.fetch(entity)
@@ -37,10 +45,6 @@ module Rbots::Plugin
       else
         nil
       end
-    end
-
-    def disabled_hosts
-      Rbots::Brain.brain.smembers("no_deploy")
     end
 
     def find_worker_names(names_or_ips)
