@@ -31,8 +31,8 @@ module Rbots::Plugin
 
     def extract_name(entity)
       if is_ip?(entity)
-        self.class.worker_name_map.fetch(entity)
-      elsif self.class.known_hosts.include?(entity)
+        worker_name_map.fetch(entity)
+      elsif known_hosts.include?(entity)
         entity
       else
         nil
@@ -55,7 +55,7 @@ module Rbots::Plugin
     end
 
     def self.known_hosts
-      @known_hosts ||= Set.new(self.class.worker_name_map.values.flatten)
+      @known_hosts ||= Set.new(worker_name_map.values.flatten)
     end
 
     def toggle_hosts(*names, options)
@@ -64,12 +64,6 @@ module Rbots::Plugin
       else
         brain.sadd("no_deploy", *names)
       end
-    end
-
-    def worker_names_for_ip(ip)
-      names = self.class.worker_name_map[ip]
-      return names unless names.nil?
-      return [ip] if self.class.worker_name_map.values.flatten.include?(ip)
     end
 
     def self.worker_name_map
