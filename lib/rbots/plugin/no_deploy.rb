@@ -54,7 +54,7 @@ module Rbots::Plugin
       Resolv::IPv4::Regex === str
     end
 
-    def self.known_hosts
+    def known_hosts
       @known_hosts ||= Set.new(worker_name_map.values.flatten)
     end
 
@@ -66,7 +66,7 @@ module Rbots::Plugin
       end
     end
 
-    def self.worker_name_map
+    def worker_name_map
       @worker_name_map ||= YAML.load_file("/root/ip_map.yml")
     end
   end
