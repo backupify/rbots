@@ -10,7 +10,7 @@ module Rbots::Plugin
     LIST_DESC = "list no deploy - List worker machines that are currently on the no deploy list"
 
     desc(DISABLE_DESC)
-    on(/(?:disable deploys? to) (.*)/i) do |ip|
+    on(/(?:@[^ ]+ )?(?:disable deploys? to) (.*)/i) do |ip|
       brain = Rbots::Brain.brain
       names = worker_names_for_ip(ip)
       names = [ip] if names.empty?
@@ -21,7 +21,7 @@ module Rbots::Plugin
     end
 
     desc(ENABLE_DESC)
-    on(/(?:enable deploys? to) (.*)/i) do |ip|
+    on(/(?:@[^ ]+ )?(?:enable deploys? to) (.*)/i) do |ip|
       names = worker_names_for_ip(ip)
       brain = Rbots::Brain.brain
       names = [ip] if names.empty?
@@ -32,7 +32,7 @@ module Rbots::Plugin
     end
 
     desc(LIST_DESC)
-    on(/(?:list no deploy)/i) do
+    on(/(?:@[^ ]+ )?(?:list no deploy)/i) do
       names = Rbots::Brain.brain.smembers("no_deploy")
       reply("The following hosts are on the no deploy list: #{names.join(", ")}")
     end

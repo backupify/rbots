@@ -4,8 +4,8 @@ require "bundler/setup"
 require "rbots"
 
 require "rbots/plugin/pry"
-require "rbots/plugin/google_images"
 require "rbots/data_store/redis"
+require "rbots/plugin/no_deploy"
 
 class Bot < Hipbot::Bot
   configure do |c|
