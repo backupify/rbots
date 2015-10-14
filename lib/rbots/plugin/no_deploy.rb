@@ -10,24 +10,38 @@ module Rbots::Plugin
     ENABLE_DESC = "enable deploys to <host ip> - Enable deploys to workers on a host machine with a matching IP"
     LIST_DESC = "list no deploy - List worker machines that are currently on the no deploy list"
 
-    desc(DISABLE_DESC)
-    on(/(?:@[^ ]+ )?(?:disable deploys? to) (.*)/i) do |entities|
+    DISABLE_LAMBDA = lambda do |entities|
       names = find_worker_names(entities)
+      if names.empty?
+        reply("I'm sorry, Dave. I don't know who you're talking about.")
+        return
+      end
       toggle_hosts(names, :enabled => false)
       reply("Disabled deploys to #{names.join(", ")}")
     end
 
-    desc(ENABLE_DESC)
-    on(/(?:@[^ ]+ )?(?:enable deploys? to) (.*)/i) do |entities|
+    ENABLE_LAMBDA = lambda do |entities|
       names = find_worker_names(entities)
+      if names.empty?
+        reply("I'm sorry, Dave. I don't know who you're talking about.")
+        return
+      end
       toggle_hosts(names, :enabled => true)
       reply("Enabled deploys to #{names.join(", ")}")
     end
 
-    desc(LIST_DESC)
-    on(/(?:@[^ ]+ )?(?:list no deploy)/i) do
+    LIST_LAMBDA = lambda do
       reply("The following hosts are on the no deploy list: #{disabled_hosts.join(", ")}")
     end
+
+    desc(DISABLE_DESC)
+    on(/(?:@[^ ]+ )?(?:disable deploys? to) (.*)/i, &DISABLE_LAMBDA)
+
+    desc(ENABLE_DESC)
+    on(/(?:@[^ ]+ )?(?:enable deploys? to) (.*)/i, &ENABLE_LAMBDA)
+
+    desc(LIST_DESC)
+    on(/(?:@[^ ]+ )?(?:list no deploy)/i, &LIST_LAMBDA)
 
     def brain
       self.class.brain
