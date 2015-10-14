@@ -6,9 +6,21 @@ module Rbots::Plugin
     include Hipbot::Plugin
     include Rbots::Brain
 
+    ADD_ENTRY_DESC = "add <entry> to no deploy - Forcefully add an entry to the no deploy list"
+    REMOVE_ENTRY_DESC = "remove <entry> from no deploy - Forcefully remove an entry to the no deploy list"
     DISABLE_DESC = "disable deploys to <host ip> - Disable deploys to workers on a host machine with a matching IP"
     ENABLE_DESC = "enable deploys to <host ip> - Enable deploys to workers on a host machine with a matching IP"
     LIST_DESC = "list no deploy - List worker machines that are currently on the no deploy list"
+
+    ADD_ENTRY_LAMBDA = lambda do |entry|
+      toggle_hosts([entry], :enabled => false)
+      reply("Added entry #{entry} to no deploy list.")
+    end
+
+    REMOVE_ENTRY_LAMBDA = lambda do |entry|
+      toggle_hosts([entry], :enabled => true)
+      reply("Removed entry #{entry} to no deploy list.")
+    end
 
     DISABLE_LAMBDA = lambda do |entities|
       names = find_worker_names(entities)
@@ -33,6 +45,12 @@ module Rbots::Plugin
     LIST_LAMBDA = lambda do
       reply("The following hosts are on the no deploy list: #{disabled_hosts.join(", ")}")
     end
+
+    desc(ADD_ENTRY_DESC)
+    on(/(?:@[^ ]+ )?(?:add) (.*) (?:to no deploy)(?: list)?/i, &ADD_ENTRY_LAMBDA)
+
+    desc(REMOVE_ENTRY_DESC)
+    on(/(?:@[^ ]+ )?(?:remove) (.*) (?:from no deploy)(?: list)?/i, &REMOVE_ENTRY_LAMBDA)
 
     desc(DISABLE_DESC)
     on(/(?:@[^ ]+ )?(?:disable deploys? to) (.*)/i, &DISABLE_LAMBDA)
