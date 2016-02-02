@@ -47,19 +47,19 @@ module Rbots::Plugin
     end
 
     desc(ADD_ENTRY_DESC)
-    on(/(?:@[^ ]+ )?(?:add) (.*) (?:to no deploy)(?: list)?/i, &ADD_ENTRY_LAMBDA)
+    on(/(?:@[^ ]+ )?(?:add) (.*) (?:to no deploy)(?: list)?/i, :global => true, &ADD_ENTRY_LAMBDA)
 
     desc(REMOVE_ENTRY_DESC)
-    on(/(?:@[^ ]+ )?(?:remove) (.*) (?:from no deploy)(?: list)?/i, &REMOVE_ENTRY_LAMBDA)
+    on(/(?:@[^ ]+ )?(?:remove) (.*) (?:from no deploy)(?: list)?/i, :global => true, &REMOVE_ENTRY_LAMBDA)
 
     desc(DISABLE_DESC)
-    on(/(?:@[^ ]+ )?(?:disable deploys? to) (.*)/i, &DISABLE_LAMBDA)
+    on(/(?:@[^ ]+ )?(?:disable deploys? to) (.*)/i, :global => true, &DISABLE_LAMBDA)
 
     desc(ENABLE_DESC)
-    on(/(?:@[^ ]+ )?(?:enable deploys? to) (.*)/i, &ENABLE_LAMBDA)
+    on(/(?:@[^ ]+ )?(?:enable deploys? to) (.*)/i, :global => true, &ENABLE_LAMBDA)
 
     desc(LIST_DESC)
-    on(/(?:@[^ ]+ )?(?:list no deploy)/i, &LIST_LAMBDA)
+    on(/(?:@[^ ]+ )?(?:list no deploy)/i, :global => true, &LIST_LAMBDA)
 
     def brain
       self.class.brain
