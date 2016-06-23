@@ -3,9 +3,7 @@
 require "bundler/setup"
 require "rbots"
 
-require "rbots/plugin/pry"
-require "rbots/data_store/redis"
-require "rbots/plugin/no_deploy"
+load "plugin.config.rb"
 
 class Bot < Hipbot::Bot
   configure do |c|
@@ -19,5 +17,11 @@ class Bot < Hipbot::Bot
   end
 end
 
+trap "SIGUSR1" do
+  puts "Reloading plugins..."
+  load "plugin.config.rb"
+end
+
+puts "pid = #{Process.pid}"
 puts "Started with the following plugins: #{Hipbot.plugins.map(&:class)}"
 Bot.start!
