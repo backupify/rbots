@@ -26,7 +26,9 @@ module Rbots::Plugin
     end
 
     desc 'stanley me - returns a selfie of stanley'
-    on /stanley me\s+$/ { reply_if image_url('axolotl') }
+    on /stanley me\s+$/ do
+      reply_if image_url('axolotl')
+    end
 
     private
 
