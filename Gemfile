@@ -9,8 +9,8 @@ end
 
 group :test do
   gem "coveralls", :require => false
-  gem "guard"
-  gem "guard-minitest"
+  # gem "guard"
+  # gem "guard-minitest"
   gem "minitest", ">= 3.0"
   gem "mocha"
   gem "simplecov", :require => false
