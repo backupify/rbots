@@ -17,17 +17,22 @@ module Rbots::Plugin
 
     desc(ANIMATE_ME_DESC)
     on(/(?:animate)(?: me)? (.*)/i) do |match|
-      url = image_url(match, true)
-      reply(url) unless url.empty?
+      reply_if image_url(match, true)
     end
 
     desc(IMAGE_ME_DESC)
     on(/(?:image|img)(?: me)? (.*)/i) do |match|
-      url = image_url(match)
-      reply(url) unless url.empty?
+      reply_if image_url(match)
     end
 
+    desc 'stanley me - returns a selfie of stanley'
+    on /stanley me\s+$/ { reply_if image_url('axolotl') }
+
     private
+
+    def reply_if(m)
+      reply m if m
+    end
 
     def image_url(query, animated = false)
       params = {
