@@ -1,6 +1,7 @@
 require "json"
 
 module Rbots::Plugin
+  # The GoogleImages API has been deprecated :(
   class GoogleImages
     include Hipbot::Plugin
 
