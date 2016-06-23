@@ -18,5 +18,5 @@ class Bot < Hipbot::Bot
   end
 end
 
-puts "Started with the following plugins: #{Hipbot.plugins}"
+puts "Started with the following plugins: #{Hipbot.plugins.map(&:class}"
 Bot.start!
