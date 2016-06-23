@@ -13,10 +13,11 @@ class Bot < Hipbot::Bot
     rbot_credentials = File.exist?(credentials_path) ?  YAML.load_file(credentials_path) : {}
     c.jid       = ENV["RBOT_JID"] || rbot_credentials["jid"]
     c.password  = ENV["RBOT_PASSWORD"] || rbot_credentials["password"]
-    c.storage = Rbots::DataStore::Redis
-    c.join = :none
+    c.storage   = Rbots::DataStore::Redis
+    c.join      = :none
+    c.logger    = Logger.new($stdout).tap { |l| l.level = Logger::INFO }
   end
 end
 
-puts "Started with the following plugins: #{Hipbot.plugins.map(&:class}"
+puts "Started with the following plugins: #{Hipbot.plugins.map(&:class)}"
 Bot.start!
